@@ -1,0 +1,12 @@
+# Main compose file for ROS-master with the container from Dockerhub.
+version: '2.1'
+
+services:
+  social_interaction:
+    image: windesheimwinny/social_interaction:latest
+    networks:
+      - ros
+    restart: always
+
+networks:
+  ros:
