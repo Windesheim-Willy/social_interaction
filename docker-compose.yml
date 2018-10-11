@@ -7,6 +7,10 @@ services:
     networks:
       - ros
     restart: always
+    volumes:
+      - "./app:/src/app"
+    ports:
+      - "3000:3000"
 
 networks:
   ros:
