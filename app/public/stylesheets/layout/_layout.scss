@@ -1,6 +1,7 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #E5ECF2; }
+  background: #E5ECF2;
+}
 
 .container {
   display: -webkit-box;
@@ -15,17 +16,5 @@ body {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
-  justify-content: center; }
-
-.robot-avatar-container {
-  -webkit-box-flex: 0;
-  -webkit-flex: none;
-  -ms-flex: none;
-  flex: none;
-  max-width: 75%; }
-
-.robot-avatar {
-  height: 100vh;
-  max-width: 100%; }
-
-/*# sourceMappingURL=style.css.map */
+  justify-content: center;
+}
