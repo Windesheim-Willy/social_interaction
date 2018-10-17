@@ -4,22 +4,18 @@ body {
 
 .container {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
   min-height: 100vh;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
 
 .robot-avatar-container {
   -webkit-box-flex: 0;
-  -webkit-flex: none;
   -ms-flex: none;
   flex: none;
   max-width: 75%; }
@@ -27,5 +23,3 @@ body {
 .robot-avatar {
   max-height: 100vh;
   max-width: 100%; }
-
-/*# sourceMappingURL=style.css.map */

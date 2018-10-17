@@ -17,7 +17,10 @@ var paths = {
 function buildStyle() {
     return gulp.src(paths.scss + '**/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(autoprefixer())
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(gulp.dest(paths.css));
 }
 
