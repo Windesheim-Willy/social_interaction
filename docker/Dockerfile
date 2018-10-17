@@ -7,6 +7,6 @@ RUN npm install nodemon -g
 WORKDIR /src/app
 
 COPY ./docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/docker-entrypoint.sh"]
 
 EXPOSE 3000
