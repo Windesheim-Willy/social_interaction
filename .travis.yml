@@ -6,4 +6,10 @@ services:
   - docker
 
 script:
-  - docker-compose -f docker-compose.yml -f docker-compose.build.yml build
+  - docker build -t windesheimwinny/social_interaction docker/Dockerfile .
+
+deploy:
+  provider: script
+  script: bash ./docker/docker_push
+  on:
+    branch: master
