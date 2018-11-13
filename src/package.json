@@ -16,6 +16,7 @@
     "gulp-sass": "^4.0.2",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "rosnodejs": "^3.0.0"
   }
 }

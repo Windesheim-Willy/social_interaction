@@ -8,9 +8,10 @@ services:
       - ros
     restart: always
     volumes:
-      - "./app:/src/app"
+      - "./:/src"
     ports:
       - "3000:3000"
+    command: rosrun social_interaction start.sh
 
 networks:
   ros:

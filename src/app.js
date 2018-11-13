@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 
+var rosIsActive = require('./adapters/rosIsActive');
+
 var app = express();
 
 // view engine setup

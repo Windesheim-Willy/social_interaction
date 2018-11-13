@@ -3,4 +3,6 @@ version: '2.1'
 
 services:
   social_interaction:
-    build: ./docker
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
