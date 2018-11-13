@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 
 var rosIsActive = require('./adapters/rosIsActive');
+rosIsActive.listener();
 
 var app = express();
 
@@ -36,6 +37,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+rosIsActive.on('rosIsActive', function (is_active) {
+  console.log(is_active);
 });
 
 module.exports = app;
