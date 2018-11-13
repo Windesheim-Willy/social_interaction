@@ -6,7 +6,7 @@ services:
   - docker
 
 script:
-  - docker build -t windesheimwinny/social_interaction docker/Dockerfile .
+  - docker build -t windesheimwinny/social_interaction -f docker/Dockerfile .
 
 deploy:
   provider: script
