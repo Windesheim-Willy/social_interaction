@@ -3,12 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const pug = require('pug');
 
 var indexRouter = require('./routes/index');
 
 var rosIsActive = require('./adapters/rosIsActive');
+rosIsActive.listener();
 
 var app = express();
+
+// Create socket.
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+app.io = io;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +43,25 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// Ros is active event.
+rosIsActive.on('rosIsActive', function (is_active) {
+  var content = '';
+
+  if (is_active) {
+    content = pug.renderFile('views/active_information.pug', {});
+  }
+  else {
+    content = pug.renderFile('views/not_active_information.pug', {});
+  }
+
+  console.log(content);
+
+  io.emit('rosIsActive', {
+    is_active: is_active,
+    additional_content: content
+  });
 });
 
 module.exports = app;

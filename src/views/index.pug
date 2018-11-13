@@ -1,6 +1,9 @@
 extends layout
 
 block content
-  div(class='container')
+  div(class='row willy-row')
     div(class='robot-avatar-container')
       img(src='/images/avatar.png', class='robot-avatar')
+
+  div(id='additional-content')
+    include not_active_information.pug
