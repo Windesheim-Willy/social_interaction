@@ -1,6 +1,11 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: #E5ECF2;
+  transition: background-color 1000ms linear;
+
+  &.ros-is-active {
+    background: #ecf2e5;
+  }
 }
 
 .container {

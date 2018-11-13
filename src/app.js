@@ -11,6 +11,11 @@ rosIsActive.listener();
 
 var app = express();
 
+// Create socket.
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+app.io = io;
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -39,8 +44,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// Ros is active event.
 rosIsActive.on('rosIsActive', function (is_active) {
-  console.log(is_active);
+  io.emit('rosIsActive', is_active);
 });
 
 module.exports = app;

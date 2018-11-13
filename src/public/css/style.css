@@ -1,6 +1,10 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #E5ECF2; }
+  background: #E5ECF2;
+  -webkit-transition: background-color 1000ms linear;
+  transition: background-color 1000ms linear; }
+  body.ros-is-active {
+    background: #ecf2e5; }
 
 .container {
   display: -webkit-box;
