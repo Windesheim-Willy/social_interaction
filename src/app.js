@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const pug = require('pug');
 
 var indexRouter = require('./routes/index');
 
@@ -46,7 +47,21 @@ app.use(function(err, req, res, next) {
 
 // Ros is active event.
 rosIsActive.on('rosIsActive', function (is_active) {
-  io.emit('rosIsActive', is_active);
+  var content = '';
+
+  if (is_active) {
+    content = pug.renderFile('views/active_information.pug', {});
+  }
+  else {
+    content = pug.renderFile('views/not_active_information.pug', {});
+  }
+
+  console.log(content);
+
+  io.emit('rosIsActive', {
+    is_active: is_active,
+    additional_content: content
+  });
 });
 
 module.exports = app;

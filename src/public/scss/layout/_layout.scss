@@ -2,15 +2,10 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: #E5ECF2;
   transition: background-color 1000ms linear;
+  margin: 0;
+  height: 100vh;
 
   &.ros-is-active {
     background: #ecf2e5;
   }
-}
-
-.container {
-  display: flex;
-  align-items: center;
-  min-height: 100vh;
-  justify-content: center;
 }

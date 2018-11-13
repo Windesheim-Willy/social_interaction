@@ -1,9 +1,18 @@
-.robot-avatar-container {
-  flex: none;
-  max-width: 75%;
-}
+.willy-row {
+  height: 80%;
 
-.robot-avatar {
-  max-height: 100vh;
-  max-width: 100%;
+  .robot-avatar-container {
+    height: calc(100% - 20px);
+    padding: 10px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img {
+    flex: none;
+    max-height: 100%;
+    width: auto;
+  }
 }
