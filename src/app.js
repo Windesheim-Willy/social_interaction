@@ -54,29 +54,31 @@ rosIsActive.on('rosIsActive', function (is_active) {
   }
   willy_is_active = is_active;
 
-  var content = '';
-
-  if (is_active) {
-    io.emit('changeMood', 'green');
-    io.emit('changeFormat', {
-        willy_height: '60%',
-        content_height: '40%',
-    });
-
-    content = pug.renderFile('views/active_information.pug', {});
-    io.emit('changeContent', content)
-  }
-  else {
-    io.emit('changeMood', 'default');
-
-    io.emit('changeFormat', {
-      willy_height: '80%',
-      content_height: '20%',
-    });
-
-    content = pug.renderFile('views/not_active_information.pug', {});
-    io.emit('changeContent', content);
-  }
+    var map = require('./interactions/map');
+    new map(io).activate();
+  // var content = '';
+  //
+  // if (is_active) {
+  //   io.emit('changeMood', 'green');
+  //   io.emit('changeFormat', {
+  //       willy_height: '60%',
+  //       content_height: '40%',
+  //   });
+  //
+  //   content = pug.renderFile('views/active_information.pug', {});
+  //   io.emit('changeContent', content)
+  // }
+  // else {
+  //   io.emit('changeMood', 'default');
+  //
+  //   io.emit('changeFormat', {
+  //     willy_height: '80%',
+  //     content_height: '20%',
+  //   });
+  //
+  //   content = pug.renderFile('views/not_active_information.pug', {});
+  //   io.emit('changeContent', content);
+  // }
 });
 
 module.exports = app;
