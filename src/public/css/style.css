@@ -1,12 +1,23 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #E5ECF2;
+  background: #e5ecf2;
   -webkit-transition: background-color 1000ms linear;
   transition: background-color 1000ms linear;
   margin: 0;
   height: 100vh; }
-  body.ros-is-active {
-    background: #ecf2e5; }
+
+.mood-blue {
+  background: #e5ecf2; }
+
+.mood-green {
+  background: #ecf2e5; }
+
+.mood-red {
+  background: #f2e5ec; }
+
+.row {
+  -webkit-transition: height 1s ease-in;
+  transition: height 1s ease-in; }
 
 .willy-row {
   height: 80%; }

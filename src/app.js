@@ -46,22 +46,37 @@ app.use(function(err, req, res, next) {
 });
 
 // Ros is active event.
+var willy_is_active = 0;
 rosIsActive.on('rosIsActive', function (is_active) {
+  // Change only the content and mood when willy is switching between active and not active.
+  if (willy_is_active === is_active) {
+    return;
+  }
+  willy_is_active = is_active;
+
   var content = '';
 
   if (is_active) {
+    io.emit('changeMood', 'green');
+    io.emit('changeFormat', {
+        willy_height: '60%',
+        content_height: '40%',
+    });
+
     content = pug.renderFile('views/active_information.pug', {});
+    io.emit('changeContent', content)
   }
   else {
+    io.emit('changeMood', 'default');
+
+    io.emit('changeFormat', {
+      willy_height: '80%',
+      content_height: '20%',
+    });
+
     content = pug.renderFile('views/not_active_information.pug', {});
+    io.emit('changeContent', content);
   }
-
-  console.log(content);
-
-  io.emit('rosIsActive', {
-    is_active: is_active,
-    additional_content: content
-  });
 });
 
 module.exports = app;
