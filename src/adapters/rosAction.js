@@ -24,4 +24,4 @@ class rosAction extends EventEmitter {
     }
 }
 
-module.exports = new rosIsActive();
+module.exports = new rosAction();
