@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 
 var rosIsActive = require('./adapters/rosIsActive');
 rosIsActive.listener();
+var rosAction = require('./adapters/rosAction');
+rosAction.listener();
 
 var app = express();
 
