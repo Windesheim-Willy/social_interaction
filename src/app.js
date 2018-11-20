@@ -7,10 +7,8 @@ const pug = require('pug');
 
 var indexRouter = require('./routes/index');
 
-var rosIsActive = require('./adapters/rosIsActive');
-rosIsActive.listener();
-var rosAction = require('./adapters/rosAction');
-rosAction.listener();
+var rosConnection = require('./adapters/rosConnection');
+rosConnection.listener();
 
 var app = express();
 
@@ -49,7 +47,7 @@ app.use(function(err, req, res, next) {
 
 // Ros is active event.
 var willy_is_active = 0;
-rosIsActive.on('rosIsActive', function (is_active) {
+rosConnection.on('rosIsActive', function (is_active) {
   // Change only the content and mood when willy is switching between active and not active.
   if (willy_is_active === is_active) {
     return;
@@ -66,7 +64,7 @@ rosIsActive.on('rosIsActive', function (is_active) {
     });
 
     content = pug.renderFile('views/active_information.pug', {});
-    io.emit('changeContent', content)
+    io.emit('changeContent', content);
   }
   else {
     io.emit('changeMood', 'default');
