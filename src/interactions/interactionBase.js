@@ -12,6 +12,15 @@ class interactionBase {
     }
 
     /**
+     * If this interaction should activate on this text input.
+     * @param text
+     * @returns {boolean}
+     */
+    activateOnInput(text) {
+        return false;
+    }
+
+    /**
      * Active this interaction.
      */
     activate() {}

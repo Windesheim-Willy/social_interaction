@@ -87,9 +87,13 @@ rosConnection.on('rosTextInput', function (message) {
         return;
     }
 
-    var about = require('./interactions/aboutWilly');
-    var interaction = new about(io);
-    interaction.activate();
+    var processToInteraction = require('./adapters/processToInteraction');
+    processor = new processToInteraction(io);
+    processor.processText(message);
+
+    // var about = require('./interactions/aboutWilly');
+    // var interaction = new about(io);
+    // interaction.activate();
 });
 
 module.exports = app;
