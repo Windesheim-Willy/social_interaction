@@ -48,7 +48,7 @@ class map extends interactionBase {
                 h1: 'Sorry ik kan je niet helpen want ik kan de kaart niet vinden.',
             });
         }
-        this.io.emit('changeContent', content)
+        this.io.emit('changeContent', content);
 
         // Speak the information about the map.
         // @TODO: speak the information.
