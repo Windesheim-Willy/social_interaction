@@ -15,7 +15,7 @@ class processToInteraction {
             'about': new aboutWilly(io),
             'map_information': new mapInformation(io),
             'schedule': new scheduleInformation(io),
-            'directions': new directionsInformation(io),
+            'directions': new directionsInformation(io)
         };
 
         this.unknown = new unknown(io);
