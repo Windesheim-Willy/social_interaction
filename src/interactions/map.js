@@ -15,6 +15,17 @@ class map extends interactionBase {
     }
 
     /**
+     * If this interaction should activate on this text input.
+     * @param text
+     * @returns {boolean}
+     */
+    activateOnInput(text) {
+        var regex = /(plattegrond)|(waar moet ik heen)/i;
+        return text.match(regex);
+    }
+
+
+    /**
      * Active this interaction.
      */
     activate() {
