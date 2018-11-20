@@ -15,6 +15,9 @@ body {
 .mood-red {
   background: #f2e5ec; }
 
+.mood-gray {
+  background: #edebeb; }
+
 .row {
   -webkit-transition: height 1s ease-in;
   transition: height 1s ease-in; }
