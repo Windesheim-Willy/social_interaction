@@ -4,11 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const pug = require('pug');
+const screenSize = require('./config/screenSize');
 
 var indexRouter = require('./routes/index');
 
-var rosIsActive = require('./adapters/rosIsActive');
-rosIsActive.listener();
+var rosConnection = require('./adapters/rosConnection');
+rosConnection.listener();
 
 var app = express();
 
@@ -45,23 +46,44 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// Ros is active event.
-rosIsActive.on('rosIsActive', function (is_active) {
+// Listen of the conversation is active.
+var willy_is_active = 0;
+rosConnection.on('rosIsActive', function (is_active) {
+  // Change only the content and mood when willy is switching between active and not active.
+  if (willy_is_active === is_active) {
+    return;
+  }
+  willy_is_active = is_active;
+
   var content = '';
 
   if (is_active) {
+    io.emit('changeMood', 'green');
+    io.emit('changeFormat', screenSize.medium);
+
     content = pug.renderFile('views/active_information.pug', {});
+    io.emit('changeContent', content);
   }
   else {
+    io.emit('changeMood', 'default');
+
+    io.emit('changeFormat', screenSize.large);
+
     content = pug.renderFile('views/not_active_information.pug', {});
+    io.emit('changeContent', content);
   }
+});
 
-  console.log(content);
+// Process the input from a ros topic.
+rosConnection.on('rosTextInput', function (message) {
+    // Only interact when the is_active topic publish 1.
+    if (!willy_is_active) {
+        return;
+    }
 
-  io.emit('rosIsActive', {
-    is_active: is_active,
-    additional_content: content
-  });
+    var processToInteraction = require('./adapters/processToInteraction');
+    processor = new processToInteraction(io);
+    processor.processText(message);
 });
 
 module.exports = app;

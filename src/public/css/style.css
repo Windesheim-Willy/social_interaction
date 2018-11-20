@@ -1,12 +1,26 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #E5ECF2;
+  background: #e5ecf2;
   -webkit-transition: background-color 1000ms linear;
   transition: background-color 1000ms linear;
   margin: 0;
   height: 100vh; }
-  body.ros-is-active {
-    background: #ecf2e5; }
+
+.mood-blue {
+  background: #e5ecf2; }
+
+.mood-green {
+  background: #ecf2e5; }
+
+.mood-red {
+  background: #f2e5ec; }
+
+.mood-gray {
+  background: #edebeb; }
+
+.row {
+  -webkit-transition: height 1s ease-in;
+  transition: height 1s ease-in; }
 
 .willy-row {
   height: 80%; }
@@ -23,11 +37,17 @@ body {
     -ms-flex-pack: center;
     justify-content: center; }
   .willy-row img {
-    -webkit-box-flex: 0;
-    -ms-flex: none;
-    flex: none;
-    max-height: 100%;
-    width: auto; }
+    display: inline-block;
+    height: 100%;
+    -o-object-fit: scale-down;
+    object-fit: scale-down; }
 
 .information-row {
   text-align: center; }
+
+.image-wrapper {
+  height: 100%;
+  text-align: center; }
+  .image-wrapper img {
+    max-width: 100%;
+    max-height: 100%; }

@@ -5,18 +5,23 @@ const EventEmitter = require('events');
 /**
  * Create a adapter between the social interaction and ROS.
  */
-class rosIsActive extends EventEmitter {
+class rosConnection extends EventEmitter {
     constructor() {
         super();
         this._rosIsActive = 0;
+        this._is_active_publish = null;
     }
 
     /**
-     * Set if ROS is active.
+     * Set if ROS is active or not.
      * @param value
      */
     set rosIsActive(value) {
         this._rosIsActive = value;
+
+        const msg = new std_msgs.Int32();
+        msg.data = parseInt(value);
+        this._is_active_publish.publish(msg);
     }
 
     /**
@@ -32,16 +37,27 @@ class rosIsActive extends EventEmitter {
      */
     listener() {
         // Register node with ROS master
-        rosnodejs.initNode('/social_interaction/is_active')
+        rosnodejs.initNode('/social_interaction')
             .then((rosNode) => {
+                this._is_active_publish = rosNode.advertise('/interaction/is_active', std_msgs.Int32);
+
+                // Subscribe to the is_active topic.
                 rosNode.subscribe('/interaction/is_active', std_msgs.Int32, (msg) => {
                     this._rosIsActive = parseInt(msg.data);
                     console.log('Received rosIsActive input ' + this.rosIsActive);
 
                     this.emit('rosIsActive', this.rosIsActive);
                 });
+
+                // Subscribe to the clear_text topic.
+                rosNode.subscribe('/interaction/clear_text', std_msgs.String, (msg) => {
+                    var data = msg.data;
+                    console.log('Received rosAction input ' + data);
+
+                    this.emit('rosTextInput', data);
+                });
             });
     }
 }
 
-module.exports = new rosIsActive();
+module.exports = new rosConnection();

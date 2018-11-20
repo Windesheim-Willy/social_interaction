@@ -1,11 +1,17 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #E5ECF2;
+  background: $background_blue;
   transition: background-color 1000ms linear;
   margin: 0;
   height: 100vh;
+}
 
-  &.ros-is-active {
-    background: #ecf2e5;
+@each $value, $color in $background_colors {
+  .mood-#{$value} {
+    background: $color;
   }
+}
+
+.row {
+  transition: height 1s ease-in;
 }
