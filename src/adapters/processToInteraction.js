@@ -23,7 +23,7 @@ class processToInteraction {
 
             if (interaction.activateOnInput(text)) {
                 interaction.activate();
-                break;
+                return;
             }
         }
 

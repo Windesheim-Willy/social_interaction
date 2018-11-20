@@ -11,6 +11,16 @@ class aboutWilly extends interactionBase {
     }
 
     /**
+     * If this interaction should activate on this text input.
+     * @param text
+     * @returns {boolean}
+     */
+    activateOnInput(text) {
+        var regex = /(wie|wat) ben (jij|je)/i;
+        return text.match(regex);
+    }
+
+    /**
      * Active this interaction.
      */
     activate() {
