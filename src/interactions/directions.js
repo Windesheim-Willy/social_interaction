@@ -5,7 +5,7 @@ const path = require('path');
 const screenSize = require('../config/screenSize');
 const rosConnection = require('../adapters/rosConnection');
 
-class map extends interactionBase {
+class directions extends interactionBase {
 
     /**
      * Constructor of interaction base.
@@ -13,7 +13,7 @@ class map extends interactionBase {
      */
     constructor(io) {
         super(io);
-        this.path = '/assets/map.png';
+        this.path = '/assets/directions.png';
     }
 
     /**
@@ -22,7 +22,7 @@ class map extends interactionBase {
      * @returns {boolean}
      */
     activateOnInput(text) {
-        var regex = /(plattegrond)|(waar moet ik heen)/i;
+        var regex = /(richtingen|richting)/i;
         return text.match(regex);
     }
 
@@ -45,7 +45,7 @@ class map extends interactionBase {
         else {
             console.log("Can't find the map image on path " + path.resolve('public' + this.path));
             content = pug.renderFile('views/information.pug', {
-                h1: 'Sorry ik kan je niet helpen want ik kan de kaart niet vinden.',
+                h1: 'Sorry ik kan je niet helpen want ik kan de vakrichting informatie niet vinden.',
             });
         }
         this.io.emit('changeContent', content);
@@ -60,4 +60,4 @@ class map extends interactionBase {
 
 }
 
-module.exports = map;
+module.exports = directions;
