@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const pug = require('pug');
+const screenSize = require('./config/screenSize');
 
 var indexRouter = require('./routes/index');
 
@@ -48,7 +49,6 @@ app.use(function(err, req, res, next) {
 // Listen of the conversation is active.
 var willy_is_active = 0;
 rosConnection.on('rosIsActive', function (is_active) {
-  console.log('23424234!!!!!!!');
   // Change only the content and mood when willy is switching between active and not active.
   if (willy_is_active === is_active) {
     return;
@@ -59,10 +59,7 @@ rosConnection.on('rosIsActive', function (is_active) {
 
   if (is_active) {
     io.emit('changeMood', 'green');
-    io.emit('changeFormat', {
-        willy_height: '60%',
-        content_height: '40%',
-    });
+    io.emit('changeFormat', screenSize.medium);
 
     content = pug.renderFile('views/active_information.pug', {});
     io.emit('changeContent', content);
@@ -70,10 +67,7 @@ rosConnection.on('rosIsActive', function (is_active) {
   else {
     io.emit('changeMood', 'default');
 
-    io.emit('changeFormat', {
-      willy_height: '80%',
-      content_height: '20%',
-    });
+    io.emit('changeFormat', screenSize.large);
 
     content = pug.renderFile('views/not_active_information.pug', {});
     io.emit('changeContent', content);
@@ -90,10 +84,6 @@ rosConnection.on('rosTextInput', function (message) {
     var processToInteraction = require('./adapters/processToInteraction');
     processor = new processToInteraction(io);
     processor.processText(message);
-
-    // var about = require('./interactions/aboutWilly');
-    // var interaction = new about(io);
-    // interaction.activate();
 });
 
 module.exports = app;

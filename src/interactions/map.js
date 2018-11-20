@@ -2,6 +2,7 @@ const interactionBase = require('./interactionBase');
 const pug = require('pug');
 const fs = require('fs');
 const path = require('path');
+const screenSize = require('../config/screenSize');
 
 class map extends interactionBase {
 
@@ -32,10 +33,7 @@ class map extends interactionBase {
         super.activate();
 
         // Change the frontend of Willy.
-        this.io.emit('changeFormat', {
-            willy_height: '30%',
-            content_height: '70%',
-        });
+        this.io.emit('changeFormat', screenSize.small);
 
         var content = '';
         if (fs.existsSync(path.resolve('public' + this.path))) {

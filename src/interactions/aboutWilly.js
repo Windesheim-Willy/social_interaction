@@ -1,4 +1,5 @@
 const interactionBase = require('./interactionBase');
+const screenSize = require('../config/screenSize');
 
 class aboutWilly extends interactionBase {
 
@@ -28,10 +29,7 @@ class aboutWilly extends interactionBase {
 
         // Change the frontend of Willy.
         this.io.emit('changeMood', 'red');
-        this.io.emit('changeFormat', {
-            willy_height: '100%',
-            content_height: '0%',
-        });
+        this.io.emit('changeFormat', screenSize.full);
         this.io.emit('changeContent', '')
 
         // Speak the information about Willy.

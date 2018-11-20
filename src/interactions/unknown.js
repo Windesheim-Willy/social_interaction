@@ -1,5 +1,6 @@
 const interactionBase = require('./interactionBase');
 const pug = require('pug');
+const screenSize = require('../config/screenSize');
 
 class unknown extends interactionBase {
 
@@ -19,10 +20,7 @@ class unknown extends interactionBase {
 
         // Change the frontend of Willy.
         this.io.emit('changeMood', 'gray');
-        this.io.emit('changeFormat', {
-            willy_height: '80%',
-            content_height: '20%',
-        });
+        this.io.emit('changeFormat', screenSize.large);
 
         var content = pug.renderFile('views/information.pug', {
             h1: 'Sorry ik begrijp je niet',
