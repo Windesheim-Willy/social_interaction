@@ -3,6 +3,7 @@ const pug = require('pug');
 const fs = require('fs');
 const path = require('path');
 const screenSize = require('../config/screenSize');
+const rosConnection = require('../adapters/rosConnection');
 
 class map extends interactionBase {
 
@@ -51,6 +52,10 @@ class map extends interactionBase {
 
         // Speak the information about the map.
         // @TODO: speak the information.
+
+        setTimeout(function () {
+            rosConnection.changeRosActive(0);
+        }, 10000);
     }
 
 }

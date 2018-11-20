@@ -1,6 +1,7 @@
 const interactionBase = require('./interactionBase');
 const pug = require('pug');
 const screenSize = require('../config/screenSize');
+const rosConnection = require('../adapters/rosConnection');
 
 class unknown extends interactionBase {
 
@@ -29,6 +30,10 @@ class unknown extends interactionBase {
 
         // Speak the information.
         // @TODO: speak the information.
+
+        setTimeout(function () {
+            rosConnection.changeRosActive(0);
+        }, 3000);
     }
 
 }

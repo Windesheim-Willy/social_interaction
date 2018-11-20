@@ -8,7 +8,6 @@ const EventEmitter = require('events');
 class rosConnection extends EventEmitter {
     constructor() {
         super();
-        this._rosIsActive = 0;
         this._is_active_publish = null;
     }
 
@@ -16,20 +15,14 @@ class rosConnection extends EventEmitter {
      * Set if ROS is active or not.
      * @param value
      */
-    set rosIsActive(value) {
-        this._rosIsActive = value;
+    changeRosActive(value) {
+        value = parseInt(value);
+        console.log('rosIsActive!!!!! ' + value);
 
         const msg = new std_msgs.Int32();
-        msg.data = parseInt(value);
+        msg.data = value;
         this._is_active_publish.publish(msg);
-    }
-
-    /**
-     * Get if ros is active.
-     * @returns {number}
-     */
-    get rosIsActive() {
-        return this._rosIsActive;
+        this.emit('rosIsActive', 0);
     }
 
     /**
@@ -43,10 +36,10 @@ class rosConnection extends EventEmitter {
 
                 // Subscribe to the is_active topic.
                 rosNode.subscribe('/interaction/is_active', std_msgs.Int32, (msg) => {
-                    this._rosIsActive = parseInt(msg.data);
-                    console.log('Received rosIsActive input ' + this.rosIsActive);
+                    var is_active = parseInt(msg.data);
+                    console.log('Received rosIsActive input ' + is_active);
 
-                    this.emit('rosIsActive', this.rosIsActive);
+                    this.emit('rosIsActive', is_active);
                 });
 
                 // Subscribe to the clear_text topic.
