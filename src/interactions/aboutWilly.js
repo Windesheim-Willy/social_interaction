@@ -1,5 +1,6 @@
 const interactionBase = require('./interactionBase');
 const screenSize = require('../config/screenSize');
+const rosConnection = require('../adapters/rosConnection');
 
 class aboutWilly extends interactionBase {
 
@@ -34,6 +35,10 @@ class aboutWilly extends interactionBase {
 
         // Speak the information about Willy.
         // @TODO: speak the information.
+
+        setTimeout(function () {
+            rosConnection.changeRosActive(0);
+        }, 10000);
     }
 
 }
