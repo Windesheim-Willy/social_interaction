@@ -45,9 +45,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// Ros is active event.
+// Listen of the conversation is active.
 var willy_is_active = 0;
 rosConnection.on('rosIsActive', function (is_active) {
+  console.log('23424234!!!!!!!');
   // Change only the content and mood when willy is switching between active and not active.
   if (willy_is_active === is_active) {
     return;
@@ -77,6 +78,18 @@ rosConnection.on('rosIsActive', function (is_active) {
     content = pug.renderFile('views/not_active_information.pug', {});
     io.emit('changeContent', content);
   }
+});
+
+// Process the input from a ros topic.
+rosConnection.on('rosTextInput', function (message) {
+    // Only interact when the is_active topic publish 1.
+    if (!willy_is_active) {
+        return;
+    }
+
+    var about = require('./interactions/aboutWilly');
+    var interaction = new about(io);
+    interaction.activate();
 });
 
 module.exports = app;
