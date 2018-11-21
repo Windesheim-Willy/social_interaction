@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 ROS_DISTRO="kinetic"
 
 # Make sure only root can run our script
