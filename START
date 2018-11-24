@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+source /opt/ros/kinetic/setup.bash
+export ROS_PACKAGE_PATH="$(pwd)/../:$ROS_PACKAGE_PATH"
+
+case "$1" in
+start)
+  cd src
+
+  sudo npm install
+  sudo npm run sass:build
+  rosrun social_interaction start.sh
+  ;;
+stop)
+  ;;
+restart)
+  $0 stop
+  $0 start
+  ;;
+status)
+  if [ -e /var/run/brain.pid ]; then
+    echo brain is running, pid=`cat /var/run/brain.pid`
+  else
+    echo ros_master is NOT running
+    exit 1
+  fi
+  ;;
+*)
+  echo "Usage: $0 {start|stop|status|restart}"
+esac
+
+exit 0
