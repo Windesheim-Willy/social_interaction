@@ -1,4 +1,4 @@
-#!/bin/bashca
+#!/bin/bash
 ### BEGIN INIT INFO
 # Provides:          social_interaction
 # Required-Start:    $network $remote_fs $syslog
