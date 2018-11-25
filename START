@@ -20,7 +20,7 @@
 
 source /opt/ros/kinetic/setup.bash
 cd /opt/willy/components/social_interaction/src
-export ROS_PACKAGE_PATH="$(pwd)/..q/:$ROS_PACKAGE_PATH"
+export ROS_PACKAGE_PATH="$(pwd)/../:$ROS_PACKAGE_PATH"
 
 DAEMON="/opt/ros/kinetic/bin/rosrun social_interaction start.sh"
 NAME=social_interaction
