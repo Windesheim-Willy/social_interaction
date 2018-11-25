@@ -19,10 +19,9 @@
 # update-rc.d roscore remove
 #
 
-source /opt/ros/kinetic/setup.bash
 export ROS_PACKAGE_PATH="$(pwd)/../:$ROS_PACKAGE_PATH"
 
-DAEMON="rosrun"
+DAEMON="/opt/ros/kinetic/bin/rosrun"
 DAEMON_ARGS="social_interaction start.sh"
 NAME=social_interaction
 ROSCORE_LOG=/var/log/social_interaction.log
