@@ -1,22 +1,21 @@
-#!/bin/bash
+#!/bin/bashca
 ### BEGIN INIT INFO
-# Provides:          roscore
+# Provides:          social_interaction
 # Required-Start:    $network $remote_fs $syslog
 # Required-Stop:     $network $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: ROS core daemon
-# Description:       Core processes for Robot Operating System.
+# Short-Description: social_interaction daemon
 ### END INIT INFO
 
 #
 # To auto start on boot execute (once) as root
 #
-# update-rc.d roscore defaults
+# update-rc.d social_interaction defaults
 #
 # To stop auto start on boot execute
 #
-# update-rc.d roscore remove
+# update-rc.d social_interaction remove
 #
 
 source /opt/ros/kinetic/setup.bash
