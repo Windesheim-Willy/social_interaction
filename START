@@ -7,12 +7,14 @@ export ROS_PACKAGE_PATH="$(pwd)/../:$ROS_PACKAGE_PATH"
 case "$1" in
 start)
   rosrun social_interaction start.sh  &>/dev/null &
-  sleep 30
+
+  while ! echo exit | nc localhost 3000; do sleep 10; done
   sudo -u pi DISPLAY=:0 chromium-browser http://localhost:3000 -kiosk &>/dev/null &
   ;;
 stop)
-  killall rosrun
-  killall chrome
+  rosnode kill -a
+  killall node
+  killall chromium-browse
   ;;
 restart)
   $0 stop
