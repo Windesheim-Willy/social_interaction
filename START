@@ -21,8 +21,7 @@
 
 export ROS_PACKAGE_PATH="$(pwd)/../:$ROS_PACKAGE_PATH"
 
-DAEMON="/opt/ros/kinetic/bin/rosrun"
-DAEMON_ARGS="social_interaction start.sh"
+DAEMON="/opt/ros/kinetic/bin/rosrun social_interaction start.sh"
 NAME=social_interaction
 ROSCORE_LOG=/var/log/social_interaction.log
 ROSCORE_ERR=/var/log/social_interaction.err
