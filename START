@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ### BEGIN INIT INFO
 # Provides:          roscore
 # Required-Start:    $network $remote_fs $syslog
