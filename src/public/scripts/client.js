@@ -45,7 +45,7 @@ $(document).ready(function () {
 
         setTimeout(function() {
             $content.hide('slow');
-        }, 1000);
+        }, 10000);
     });
 
     /**
