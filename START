@@ -4,6 +4,9 @@ cd src
 source /opt/ros/kinetic/setup.bash
 export ROS_PACKAGE_PATH="$(pwd)/../:$ROS_PACKAGE_PATH"
 
+export ROS_MASTER_URI=http://192.168.1.210:11311/
+export ROS_IP=192.168.1.103
+
 case "$1" in
 start)
   rosrun social_interaction start.sh  &>/dev/null &
