@@ -63,3 +63,6 @@ npm install nodemon -g
 # Install the social interaction as ROS package.
 cd $COMPONENTDIR
 catkin_make
+
+npm install
+npm run sass:build

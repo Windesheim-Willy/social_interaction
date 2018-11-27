@@ -12,7 +12,6 @@ start)
   sudo -u pi DISPLAY=:0 chromium-browser http://localhost:3000 -kiosk &>/dev/null &
   ;;
 stop)
-  rosnode kill -a
   killall node
   killall chromium-browse
   ;;
@@ -20,8 +19,13 @@ restart)
   $0 stop
   $0 start
   ;;
+update)
+  $0 stop
+  npm install
+  npm run sass:build
+  ;;
 *)
-  echo "Usage: $0 {start|stop|restart}"
+  echo "Usage: $0 {start|stop|restart|update-packages}"
 esac
 
 exit 0
