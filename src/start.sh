@@ -1,3 +1,3 @@
-npm install
-npm run sass:build
+#!/bin/bash
+
 npm start
