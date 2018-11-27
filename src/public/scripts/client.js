@@ -35,6 +35,20 @@ $(document).ready(function () {
     });
 
     /**
+     * Socket event for changing the text after a input.
+     */
+    socket.on('textInput', function (data) {
+        var $content = $('#text-input');
+
+        $content.html(content);
+        $content.show('slow');
+
+        setTimeout(function() {
+            $content.hide('slow');
+        }, 1000);
+    });
+
+    /**
      * Remove a class with a regex.
      *
      * @param re
