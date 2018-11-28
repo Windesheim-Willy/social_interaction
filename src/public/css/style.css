@@ -22,6 +22,18 @@ body {
   -webkit-transition: height 1s ease-in;
   transition: height 1s ease-in; }
 
+#text-input {
+  display: none;
+  position: fixed;
+  background: #383838;
+  height: 50px;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  font-size: 2rem;
+  padding: 0.6rem 0;
+  color: #fff; }
+
 .willy-row {
   height: 80%; }
   .willy-row .robot-avatar-container {

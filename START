@@ -1,0 +1,34 @@
+#!/bin/bash
+cd src
+
+source /opt/ros/kinetic/setup.bash
+export ROS_PACKAGE_PATH="$(pwd)/../:$ROS_PACKAGE_PATH"
+
+export ROS_MASTER_URI=http://192.168.1.210:11311/
+export ROS_IP=192.168.1.103
+
+case "$1" in
+start)
+  rosrun social_interaction start.sh  &>/dev/null &
+
+  while ! echo exit | nc localhost 3000; do sleep 10; done
+  sudo -u pi DISPLAY=:0 chromium-browser http://localhost:3000 -kiosk &>/dev/null &
+  ;;
+stop)
+  killall node
+  killall chromium-browse
+  ;;
+restart)
+  $0 stop
+  $0 start
+  ;;
+update)
+  $0 stop
+  npm install
+  npm run sass:build
+  ;;
+*)
+  echo "Usage: $0 {start|stop|restart|update-packages}"
+esac
+
+exit 0

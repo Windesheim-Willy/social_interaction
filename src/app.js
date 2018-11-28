@@ -76,6 +76,8 @@ rosConnection.on('rosIsActive', function (is_active) {
 
 // Process the input from a ros topic.
 rosConnection.on('rosTextInput', function (message) {
+    io.emit('textInput', message);
+
     // Only interact when the is_active topic publish 1.
     if (!willy_is_active) {
         return;
