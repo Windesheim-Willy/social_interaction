@@ -48,6 +48,9 @@ $(document).ready(function () {
         }, 10000);
     });
 
+    /**
+     * Socket event for show or hide confetti at the page.
+     */
     socket.on('confetti', function (enable) {
         var $body = $('body');
 
