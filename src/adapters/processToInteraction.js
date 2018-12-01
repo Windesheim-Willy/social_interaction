@@ -3,6 +3,7 @@ const aboutWilly = require('../interactions/aboutWilly');
 const mapInformation = require('../interactions/map');
 const scheduleInformation = require('../interactions/schedule');
 const directionsInformation = require('../interactions/directions');
+const survey = require('../interactions/survey');
 
 class processToInteraction {
 
@@ -15,7 +16,8 @@ class processToInteraction {
             'about': new aboutWilly(io),
             'map_information': new mapInformation(io),
             'schedule': new scheduleInformation(io),
-            'directions': new directionsInformation(io)
+            'directions': new directionsInformation(io),
+            'survey': new survey(io)
         };
 
         this.unknown = new unknown(io);
