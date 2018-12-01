@@ -50,9 +50,11 @@ console.log('enquete!!!!');
 
     welcome() {
         var text = 'Bedankt dat je een enquete wil invullen. Ik heb ? vragen voor je.';
+        var small_text = 'Je kan alleen antwoorden in A, B, C of D';
 
         var content = pug.renderFile('views/information.pug', {
             h1: text,
+            h3: small_text,
         });
         this.io.emit('changeContent', content);
 
