@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const screenSize = require('../config/screenSize');
 const rosConnection = require('../adapters/rosConnection');
+const csv = require('csvtojson')
 
 class survey extends interactionBase {
 
@@ -13,6 +14,9 @@ class survey extends interactionBase {
      */
     constructor(io) {
         super(io);
+
+        this.csvPath = path.join(__dirname, 'assets', 'survey.csv');
+        this.surveyQuestions = [];
     }
 
     /**
@@ -36,10 +40,12 @@ class survey extends interactionBase {
         // Change the frontend of Willy.
         this.io.emit('changeFormat', screenSize.small);
 
-        this.welcome();
-        setTimeout(function () {
-            survey.startSurvey();
-        }, 2000);
+        csv().fromFile(this.csvPath)
+            .then((jsonObj)=>{
+                survey.surveyQuestions = jsonObj;
+
+                survey.welcome();
+            });
 
         // Speak the information about the map.
         // @TODO: speak the information.
@@ -49,8 +55,13 @@ class survey extends interactionBase {
         // }, 10000);
     }
 
+    /**
+     * Welcome the user with a message.
+     */
     welcome() {
-        var text = 'Bedankt dat je een enquete wil invullen. Ik heb ? vragen voor je.';
+        var survey = this;
+
+        var text = 'Bedankt dat je een enquete wil invullen. Ik heb ' + this.surveyQuestions.length + ' vragen voor je.';
         var small_text = 'Het is alleen mogelijk om antwoorden te geven in A, B, C of D';
 
         var content = pug.renderFile('views/information.pug', {
@@ -60,20 +71,27 @@ class survey extends interactionBase {
         this.io.emit('changeContent', content);
 
         // @TODO: speak the information.
+
+        // Start the survey.
+        setTimeout(function () {
+            survey.startSurvey();
+        }, 5000);
     }
 
+    /**
+     * Start the survey with all the questions.
+     */
     startSurvey() {
-        var question = 'Wat vindt je er van?';
-        var answers = [
-            'Niks',
-            'Iets',
-            'Veel',
-            'Weinig'
-        ];
+        var question = this.surveyQuestions[0];
 
         var content = pug.renderFile('views/survey.pug', {
-            question: question,
-            answers: answers,
+            question: question.question,
+            answers: [
+                question.answer_1,
+                question.answer_2,
+                question.answer_3,
+                question.answer_4
+            ],
         });
         this.io.emit('changeContent', content);
     }
