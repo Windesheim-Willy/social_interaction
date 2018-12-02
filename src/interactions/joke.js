@@ -34,6 +34,7 @@ class joke extends interactionBase {
     activate() {
         super.activate();
         var io = this.io;
+        var interaction = this;
 
         // Change the frontend of Willy.
         io.emit('changeFormat', screenSize.large);
@@ -50,7 +51,7 @@ class joke extends interactionBase {
         // @TODO: speak the information.
 
         setTimeout(function () {
-            rosConnection.changeRosActive(0);
+            interaction.stop();
             io.emit('confetti', false);
         }, 10000);
     }

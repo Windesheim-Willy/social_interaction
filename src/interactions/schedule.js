@@ -32,6 +32,7 @@ class schedule extends interactionBase {
      */
     activate() {
         super.activate();
+        var interaction = this;
 
         // Change the frontend of Willy.
         this.io.emit('changeFormat', screenSize.small);
@@ -54,7 +55,7 @@ class schedule extends interactionBase {
         // @TODO: speak the information.
 
         setTimeout(function () {
-            rosConnection.changeRosActive(0);
+            interaction.stop();
         }, 10000);
     }
 

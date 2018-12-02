@@ -106,7 +106,7 @@ class survey extends interactionBase {
      * Stop the survey.
      */
     stopSurvey() {
-        var survey = this;
+        var interaction = this;
         var text = 'Bedankt dat je mijn enquete heb willen invullen. Nog een prettige dag!';
 
         var content = pug.renderFile('views/information.pug', {
@@ -118,7 +118,7 @@ class survey extends interactionBase {
 
         // Start the survey.
         setTimeout(function () {
-            survey.stop();
+            interaction.stop();
         }, 5000);
     }
 

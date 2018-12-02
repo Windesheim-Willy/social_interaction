@@ -19,6 +19,7 @@ class aboutWilly extends interactionBase {
      */
     activate() {
         super.activate();
+        var interaction = this;
 
         // Change the frontend of Willy.
         this.io.emit('changeMood', 'red');
@@ -29,7 +30,7 @@ class aboutWilly extends interactionBase {
         // @TODO: speak the information.
 
         setTimeout(function () {
-            rosConnection.changeRosActive(0);
+            interaction.stop();
         }, 10000);
     }
 
