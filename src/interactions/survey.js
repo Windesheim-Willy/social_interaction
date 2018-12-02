@@ -15,8 +15,9 @@ class survey extends interactionBase {
     constructor(io, processor) {
         super(io, processor);
 
-        this.csvPath = path.join(__dirname, 'assets', 'survey.csv');
+        this.csvPathQuestions = path.join(__dirname, 'assets', 'survey.csv');
         this.surveyQuestions = [];
+        this.isActive = false;
         this.currentQuestion = 0;
     }
 
@@ -40,9 +41,9 @@ class survey extends interactionBase {
 
         // Change the frontend of Willy.
         this.io.emit('changeFormat', screenSize.small);
-        io.emit('changeMood', 'gray');
+        this.io.emit('changeMood', 'gray');
 
-        csv().fromFile(this.csvPath)
+        csv().fromFile(this.csvPathQuestions)
             .then((jsonObj)=>{
                 survey.surveyQuestions = jsonObj;
 
@@ -78,6 +79,7 @@ class survey extends interactionBase {
      */
     startSurvey() {
         this.currentQuestion = 0;
+        this.isActive = true;
         this.showQuestion();
     }
 
@@ -86,8 +88,9 @@ class survey extends interactionBase {
      */
     showQuestion() {
         // When the current question id is longer than the questions list stop the survey.
-        if (this.surveyQuestions.length < this.currentQuestion) {
+        if (this.surveyQuestions.length <= this.currentQuestion || this.surveyQuestions[this.currentQuestion] === undefined) {
             this.stopSurvey();
+            return;
         }
 
         var question = this.surveyQuestions[this.currentQuestion];
@@ -107,8 +110,10 @@ class survey extends interactionBase {
      * Stop the survey.
      */
     stopSurvey() {
+        this.isActive = false;
+
         var interaction = this;
-        var text = 'Bedankt dat je mijn enquete heb willen invullen. Nog een prettige dag!';
+        var text = 'Bedankt dat je mijn enquete hebt ingevuld. Nog een fijne dag!';
 
         var content = pug.renderFile('views/information.pug', {
             h1: text,
@@ -123,6 +128,22 @@ class survey extends interactionBase {
         }, 5000);
     }
 
+
+    textInput(text) {
+        super.textInput(text);
+
+        if (!this.isActive) {
+            return;
+        }
+
+        var regex = /^[a-z]$/i;
+        if (text.match(regex)) {
+            // Save the answer to csv file.
+
+            this.currentQuestion++;
+            this.showQuestion();
+        }
+    }
 }
 
 module.exports = survey;
