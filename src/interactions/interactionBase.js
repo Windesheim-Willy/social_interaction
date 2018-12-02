@@ -9,6 +9,15 @@ class interactionBase {
      */
     constructor(io) {
         this.io = io;
+        this._processor = null;
+    }
+
+    get processor() {
+        return this._processor;
+    }
+
+    set processor(value) {
+        this._processor = value;
     }
 
     /**
@@ -24,6 +33,20 @@ class interactionBase {
      * Active this interaction.
      */
     activate() {}
+
+    /**
+     * Stop this interaction.
+     */
+    stop() {
+        this._processor.stopInteraction();
+    }
+
+    /**
+     * When some node publish on the clear text topic.
+     * @param text
+     */
+    textInput(text) {}
+
 }
 
 module.exports = interactionBase;

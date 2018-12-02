@@ -3,20 +3,21 @@ const pug = require('pug');
 const fs = require('fs');
 const path = require('path');
 const screenSize = require('../config/screenSize');
-const rosConnection = require('../adapters/rosConnection');
-const csv = require('csvtojson')
+const csv = require('csvtojson');
 
 class survey extends interactionBase {
 
     /**
      * Constructor of interaction base.
      * @param io socket connection.
+     * @param processor
      */
-    constructor(io) {
-        super(io);
+    constructor(io, processor) {
+        super(io, processor);
 
         this.csvPath = path.join(__dirname, 'assets', 'survey.csv');
         this.surveyQuestions = [];
+        this.currentQuestion = 0;
     }
 
     /**
@@ -46,13 +47,6 @@ class survey extends interactionBase {
 
                 survey.welcome();
             });
-
-        // Speak the information about the map.
-        // @TODO: speak the information.
-
-        // setTimeout(function () {
-        //     rosConnection.changeRosActive(0);
-        // }, 10000);
     }
 
     /**
@@ -82,8 +76,20 @@ class survey extends interactionBase {
      * Start the survey with all the questions.
      */
     startSurvey() {
-        var question = this.surveyQuestions[0];
+        this.currentQuestion = 0;
+        this.showQuestion();
+    }
 
+    /**
+     * Show a single question.
+     */
+    showQuestion() {
+        // When the current question id is longer than the questions list stop the survey.
+        if (this.surveyQuestions.length < this.currentQuestion) {
+            this.stopSurvey();
+        }
+
+        var question = this.surveyQuestions[this.currentQuestion];
         var content = pug.renderFile('views/survey.pug', {
             question: question.question,
             answers: [
@@ -94,6 +100,26 @@ class survey extends interactionBase {
             ],
         });
         this.io.emit('changeContent', content);
+    }
+
+    /**
+     * Stop the survey.
+     */
+    stopSurvey() {
+        var survey = this;
+        var text = 'Bedankt dat je mijn enquete heb willen invullen. Nog een prettige dag!';
+
+        var content = pug.renderFile('views/information.pug', {
+            h1: text,
+        });
+        this.io.emit('changeContent', content);
+
+        // @TODO: speak the information.
+
+        // Start the survey.
+        setTimeout(function () {
+            survey.stop();
+        }, 5000);
     }
 
 }

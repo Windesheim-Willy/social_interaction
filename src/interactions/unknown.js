@@ -6,14 +6,6 @@ const rosConnection = require('../adapters/rosConnection');
 class unknown extends interactionBase {
 
     /**
-     * Constructor of interaction base.
-     * @param io socket connection.
-     */
-    constructor(io) {
-        super(io);
-    }
-
-    /**
      * Active this interaction.
      */
     activate() {

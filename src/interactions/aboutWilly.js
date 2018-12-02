@@ -5,14 +5,6 @@ const rosConnection = require('../adapters/rosConnection');
 class aboutWilly extends interactionBase {
 
     /**
-     * Constructor of interaction base.
-     * @param io socket connection.
-     */
-    constructor(io) {
-        super(io);
-    }
-
-    /**
      * If this interaction should activate on this text input.
      * @param text
      * @returns {boolean}
