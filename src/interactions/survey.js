@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const screenSize = require('../config/screenSize');
 const csv = require('csvtojson');
+const surveyInformation = require('./assets/survey');
 
 class survey extends interactionBase {
 
@@ -57,12 +58,12 @@ class survey extends interactionBase {
     welcome() {
         var survey = this;
 
-        var text = 'Bedankt dat je een enquete wil invullen. Ik heb ' + this.surveyQuestions.length + ' vragen voor je.';
-        var small_text = 'Het is alleen mogelijk om antwoorden te geven in A, B, C of D';
+        var text = 'Bedankt dat je een enquete wil invullen over de ' + surveyInformation.name;
 
-        var content = pug.renderFile('views/information.pug', {
-            h1: text,
-            h3: small_text,
+        var content = pug.renderFile('views/survey_information.pug', {
+            name: text,
+            description: surveyInformation.description,
+            author: surveyInformation.author
         });
         this.io.emit('changeContent', content);
 
