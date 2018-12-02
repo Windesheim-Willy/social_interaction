@@ -31,26 +31,27 @@ class survey extends interactionBase {
      */
     activate() {
         super.activate();
+        var survey = this;
 
         // Change the frontend of Willy.
         this.io.emit('changeFormat', screenSize.small);
-console.log('enquete!!!!');
+
         this.welcome();
         setTimeout(function () {
-            rosConnection.changeRosActive(0);
+            survey.startSurvey();
         }, 2000);
 
         // Speak the information about the map.
         // @TODO: speak the information.
 
-        setTimeout(function () {
-            rosConnection.changeRosActive(0);
-        }, 10000);
+        // setTimeout(function () {
+        //     rosConnection.changeRosActive(0);
+        // }, 10000);
     }
 
     welcome() {
         var text = 'Bedankt dat je een enquete wil invullen. Ik heb ? vragen voor je.';
-        var small_text = 'Je kan alleen antwoorden in A, B, C of D';
+        var small_text = 'Het is alleen mogelijk om antwoorden te geven in A, B, C of D';
 
         var content = pug.renderFile('views/information.pug', {
             h1: text,

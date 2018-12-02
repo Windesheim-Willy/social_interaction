@@ -18,7 +18,7 @@ class processToInteraction {
             'map_information': new mapInformation(io),
             'schedule': new scheduleInformation(io),
             'directions': new directionsInformation(io),
-            'joke': new joke(io)
+            'joke': new joke(io),
             'survey': new survey(io)
         };
 
