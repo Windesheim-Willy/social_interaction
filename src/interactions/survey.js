@@ -40,6 +40,7 @@ class survey extends interactionBase {
 
         // Change the frontend of Willy.
         this.io.emit('changeFormat', screenSize.small);
+        io.emit('changeMood', 'gray');
 
         csv().fromFile(this.csvPath)
             .then((jsonObj)=>{
