@@ -40,12 +40,32 @@ $(document).ready(function () {
     socket.on('textInput', function (data) {
         var $content = $('#text-input');
 
-        $content.html(content);
+        $content.html(data);
         $content.show('slow');
 
         setTimeout(function() {
             $content.hide('slow');
         }, 10000);
+    });
+
+    /**
+     * Socket event for show or hide confetti at the page.
+     */
+    socket.on('confetti', function (enable) {
+        var $body = $('body');
+
+        if (enable) {
+            for (let i = 0; i < 300; i++) {
+                $('<div>')
+                    .addClass('confetti')
+                    .addClass('confetti-' + i)
+                    .prependTo($body);
+            }
+        }
+        else {
+            $('.confetti').remove();
+        }
+
     });
 
     /**
