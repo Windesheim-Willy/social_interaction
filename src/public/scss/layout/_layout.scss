@@ -4,6 +4,7 @@ body {
   transition: background-color 1000ms linear;
   margin: 0;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 @each $value, $color in $background_colors {
@@ -30,6 +31,9 @@ body {
 }
 
 hr {
-  color: #808080;
-  background-color: #808080;
+  height: 1px;
+  color: #d3d3d3;
+  background-color: #d3d3d3;
+  border: none;
+  margin: 6rem 0;
 }
