@@ -5,6 +5,7 @@ const path = require('path');
 const screenSize = require('../config/screenSize');
 const csv = require('csvtojson');
 const surveyInformation = require('./assets/survey');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 class survey extends interactionBase {
 
@@ -20,6 +21,19 @@ class survey extends interactionBase {
         this.surveyQuestions = [];
         this.isActive = false;
         this.currentQuestion = 0;
+
+        this.csvPathAnswers = path.join(__dirname, 'assets', 'survey_answers.csv');
+        this.csvWriter = createCsvWriter({
+            path: this.csvPathAnswers,
+            append: true,
+            header: [
+                {id: 'survey', title: 'survey'},
+                {id: 'timestamp', title: 'timestamp'},
+                {id: 'question', title: 'question'},
+                {id: 'answer_raw', title: 'answer_raw'},
+                {id: 'answer', title: 'answer'}
+            ]
+        });
     }
 
     /**
@@ -139,7 +153,29 @@ class survey extends interactionBase {
 
         var regex = /^[a-z]$/i;
         if (text.match(regex)) {
+            const question = this.surveyQuestions[this.currentQuestion];
+            const date = new Date();
+
+            const answers = {
+                'a': question.answer_1,
+                'b': question.answer_2,
+                'c': question.answer_3,
+                'd': question.answer_4
+            };
+            let answerValue = null;
+            if (text.toLowerCase() in answers) {
+                answerValue = answers[text.toLowerCase()];
+            }
+
             // Save the answer to csv file.
+            const record = {
+                survey: surveyInformation.name,
+                timestamp: date.toISOString(),
+                question: question.question,
+                answer_raw: text,
+                answer: answerValue
+            };
+            this.csvWriter.writeRecords([record]);
 
             this.currentQuestion++;
             this.showQuestion();
