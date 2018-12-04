@@ -5,14 +5,6 @@ const rosConnection = require('../adapters/rosConnection');
 class aboutWilly extends interactionBase {
 
     /**
-     * Constructor of interaction base.
-     * @param io socket connection.
-     */
-    constructor(io) {
-        super(io);
-    }
-
-    /**
      * If this interaction should activate on this text input.
      * @param text
      * @returns {boolean}
@@ -27,6 +19,7 @@ class aboutWilly extends interactionBase {
      */
     activate() {
         super.activate();
+        var interaction = this;
 
         // Change the frontend of Willy.
         this.io.emit('changeMood', 'red');
@@ -37,7 +30,7 @@ class aboutWilly extends interactionBase {
         // @TODO: speak the information.
 
         setTimeout(function () {
-            rosConnection.changeRosActive(0);
+            interaction.stop();
         }, 10000);
     }
 

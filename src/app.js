@@ -18,6 +18,9 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 app.io = io;
 
+var processToInteraction = require('./adapters/processToInteraction');
+processor = new processToInteraction(io);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -83,9 +86,9 @@ rosConnection.on('rosTextInput', function (message) {
         return;
     }
 
-    var processToInteraction = require('./adapters/processToInteraction');
-    processor = new processToInteraction(io);
     processor.processText(message);
+    processor.textInput(message);
 });
+
 
 module.exports = app;

@@ -1,0 +1,44 @@
+.survey-row {
+  height: 100%;
+
+  h1 {
+    text-align: center;
+    background: #0D77AE;
+    color: #fff;
+    padding: 20px 0;
+    box-shadow: 3px 3px 30px -17px rgba(0, 0, 0, 0.35);
+  }
+
+  .answer-row {
+    height: 100%;
+  }
+
+  .answer {
+    width: 45%;
+    height: 25%;
+    margin: 2.5%;
+    padding: 20px 0;
+    float: left;
+    text-align: center;
+    box-shadow: 3px 3px 30px -17px rgba(0, 0, 0, 0.75);
+
+    color: #fff;
+    background: #FF355E;
+    &--2 {
+      background: #EE34D2;
+    }
+    &--3 {
+      background: #50BFE6;
+    }
+    &--4 {
+      background: #FF6037;
+    }
+
+    .answer-number {
+      font-size: 3rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+  }
+}
