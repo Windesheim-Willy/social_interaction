@@ -14,7 +14,6 @@ class joke extends interactionBase {
     constructor(io) {
         super(io);
         this.jokes = JSON.parse(fs.readFileSync(path.join(__dirname, 'assets', 'jokes.json')));
-
     }
 
     /**
@@ -26,7 +25,6 @@ class joke extends interactionBase {
         var regex = /(grap|mop)/i;
         return text.match(regex);
     }
-
 
     /**
      * Active this interaction.
@@ -46,16 +44,14 @@ class joke extends interactionBase {
         });
         io.emit('changeContent', content);
         io.emit('confetti', true);
-
-        // Speak the information about the map.
-        // @TODO: speak the information.
+        
+        rosConnection.rosSpeak(joke);
 
         setTimeout(function () {
             interaction.stop();
             io.emit('confetti', false);
         }, 10000);
     }
-
 }
 
 module.exports = joke;
