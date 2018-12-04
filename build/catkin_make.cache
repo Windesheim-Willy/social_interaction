@@ -1,2 +1,0 @@
-.
--DCATKIN_DEVEL_PREFIX=/home/willy/social_interaction/devel -DCMAKE_INSTALL_PREFIX=/home/willy/social_interaction/install -G Unix Makefiles
