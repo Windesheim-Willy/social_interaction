@@ -21,6 +21,7 @@ class survey extends interactionBase {
         this.surveyQuestions = [];
         this.isActive = false;
         this.currentQuestion = 0;
+        this.timer = null;
 
         this.csvPathAnswers = path.join(__dirname, 'assets', 'survey_answers.csv');
         this.csvWriter = createCsvWriter({
@@ -102,6 +103,8 @@ class survey extends interactionBase {
      * Show a single question.
      */
     showQuestion() {
+        var survey = this;
+
         // When the current question id is longer than the questions list stop the survey.
         if (this.surveyQuestions.length <= this.currentQuestion || this.surveyQuestions[this.currentQuestion] === undefined) {
             this.stopSurvey();
@@ -119,6 +122,10 @@ class survey extends interactionBase {
             ],
         });
         this.io.emit('changeContent', content);
+
+        this.timer = setTimeout(function () {
+            survey.stopSurvey();
+        }, 20000);
     }
 
     /**
@@ -150,6 +157,8 @@ class survey extends interactionBase {
         if (!this.isActive) {
             return;
         }
+        clearTimeout(this.timer);
+        this.timer = null;
 
         var regex = /^[a-z]$/i;
         if (text.match(regex)) {
