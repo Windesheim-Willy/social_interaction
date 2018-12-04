@@ -26,7 +26,6 @@ class directions extends interactionBase {
         return text.match(regex);
     }
 
-
     /**
      * Active this interaction.
      */
@@ -41,6 +40,7 @@ class directions extends interactionBase {
             content = pug.renderFile('views/image.pug', {
                 url: this.path,
             });
+            rosConnection.rosSpeak('Hier is de gewenste plattegrond')
         }
         else {
             console.log("Can't find the map image on path " + path.resolve('public' + this.path));
