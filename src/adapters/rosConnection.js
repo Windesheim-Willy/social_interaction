@@ -55,7 +55,6 @@ class rosConnection extends EventEmitter {
                     this.emit('rosIsActive', is_active);
                 });
 
-
                 // Subscribe to the clear_text topic.
                 rosNode.subscribe('/interaction/clear_text', std_msgs.String, (msg) => {
                     var data = msg.data;
@@ -68,13 +67,6 @@ class rosConnection extends EventEmitter {
                     var data = msg.data;
                     console.log('speech ' + data);
                 });
-                
-                // var boe = this;
-                // setTimeout(function (){boe.rosSpeak("Ik spreek nu over een ros topic");}, 1500);
-
-    
-                    
-           
             });
     }
 }
