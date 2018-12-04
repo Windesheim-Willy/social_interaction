@@ -21,6 +21,7 @@ class survey extends interactionBase {
         this.surveyQuestions = [];
         this.isActive = false;
         this.currentQuestion = 0;
+        this.timer = null;
 
         this.csvPathAnswers = path.join(__dirname, 'assets', 'survey_answers.csv');
         this.csvWriter = createCsvWriter({
@@ -102,6 +103,8 @@ class survey extends interactionBase {
      * Show a single question.
      */
     showQuestion() {
+        var survey = this;
+
         // When the current question id is longer than the questions list stop the survey.
         if (this.surveyQuestions.length <= this.currentQuestion || this.surveyQuestions[this.currentQuestion] === undefined) {
             this.stopSurvey();
@@ -119,6 +122,10 @@ class survey extends interactionBase {
             ],
         });
         this.io.emit('changeContent', content);
+
+        this.timer = setTimeout(function () {
+            survey.stopSurvey();
+        }, 20000);
     }
 
     /**
@@ -126,6 +133,21 @@ class survey extends interactionBase {
      */
     stopSurvey() {
         this.isActive = false;
+        const date = new Date();
+
+        if ((this.currentQuestion + 1) < this.surveyQuestions.length) {
+            for (let i = this.currentQuestion; i < this.surveyQuestions.length; i++) {
+                const question = this.surveyQuestions[i];
+
+                this.csvWriter.writeRecords([
+                    {
+                        survey: surveyInformation.name,
+                        timestamp: date.toISOString(),
+                        question: question.question,
+                    }
+                ]);
+            }
+        }
 
         var interaction = this;
         var text = 'Bedankt dat je mijn enquete hebt ingevuld. Nog een fijne dag!';
@@ -150,11 +172,14 @@ class survey extends interactionBase {
         if (!this.isActive) {
             return;
         }
+        clearTimeout(this.timer);
+        this.timer = null;
+
+        const date = new Date();
+        const question = this.surveyQuestions[this.currentQuestion];
 
         var regex = /^[a-z]$/i;
         if (text.match(regex)) {
-            const question = this.surveyQuestions[this.currentQuestion];
-            const date = new Date();
 
             const answers = {
                 'a': question.answer_1,
@@ -179,6 +204,16 @@ class survey extends interactionBase {
 
             this.currentQuestion++;
             this.showQuestion();
+        }
+        else {
+            this.csvWriter.writeRecords([
+                {
+                    survey: surveyInformation.name,
+                    timestamp: date.toISOString(),
+                    question: question.question,
+                    answer_raw: text,
+                }
+            ]);
         }
     }
 }
