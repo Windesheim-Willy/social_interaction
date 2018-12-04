@@ -23,13 +23,12 @@ class unknown extends interactionBase {
         this.io.emit('changeMood', 'gray');
         this.io.emit('changeFormat', screenSize.large);
 
+        var message = 'Sorry ik begrijp je niet';
         var content = pug.renderFile('views/information.pug', {
-            h1: 'Sorry ik begrijp je niet',
+            h1: message,
         });
+        rosConnection.rosSpeak(message);
         this.io.emit('changeContent', content)
-
-        // Speak the information.
-        // @TODO: speak the information.
 
         setTimeout(function () {
             rosConnection.changeRosActive(0);

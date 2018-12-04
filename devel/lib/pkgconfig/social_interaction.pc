@@ -1,0 +1,8 @@
+prefix=/home/willy/social_interaction/devel
+
+Name: social_interaction
+Description: Description of social_interaction
+Version: 0.0.1
+Cflags: 
+Libs: -L/home/willy/social_interaction/devel/lib 
+Requires: 

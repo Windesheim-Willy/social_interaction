@@ -69,8 +69,8 @@ class rosConnection extends EventEmitter {
                     console.log('speech ' + data);
                 });
                 
-                var boe = this;
-                setTimeout(function (){boe.rosSpeak("Ik spreek nu over een ros topic");}, 1500);
+                // var boe = this;
+                // setTimeout(function (){boe.rosSpeak("Ik spreek nu over een ros topic");}, 1500);
 
     
                     

@@ -43,7 +43,7 @@ class map extends interactionBase {
             rosConnection.rosSpeak('Ik heb het volgende voor je gevonden');
         }
         else {
-            var message = 'Sorry ik kan je niet helpen want ik kan de kaart niet vinden.'
+            var message = 'Sorry ik kan je niet helpen want ik kan de kaart niet vinden.';
             console.log("Can't find the map image on path " + path.resolve('public' + this.path));
             content = pug.renderFile('views/information.pug', {
                 h1: message,
@@ -51,9 +51,6 @@ class map extends interactionBase {
             rosConnection.rosSpeak(message);
        }
         this.io.emit('changeContent', content);
-
-        // Speak the information about the map.
-        // @TODO: speak the information.
 
         setTimeout(function () {
             rosConnection.changeRosActive(0);
