@@ -26,7 +26,6 @@ class map extends interactionBase {
         return text.match(regex);
     }
 
-
     /**
      * Active this interaction.
      */
@@ -42,23 +41,22 @@ class map extends interactionBase {
             content = pug.renderFile('views/image.pug', {
                 url: this.path,
             });
+            rosConnection.rosSpeak('Ik heb het volgende voor je gevonden');
         }
         else {
+            var message = 'Sorry ik kan je niet helpen want ik kan de kaart niet vinden.';
             console.log("Can't find the map image on path " + path.resolve('public' + this.path));
             content = pug.renderFile('views/information.pug', {
-                h1: 'Sorry ik kan je niet helpen want ik kan de kaart niet vinden.',
+                h1: message,
             });
-        }
+            rosConnection.rosSpeak(message);
+       }
         this.io.emit('changeContent', content);
-
-        // Speak the information about the map.
-        // @TODO: speak the information.
 
         setTimeout(function () {
             interaction.stop();
         }, 10000);
     }
-
 }
 
 module.exports = map;

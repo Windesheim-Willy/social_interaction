@@ -9,6 +9,7 @@ class rosConnection extends EventEmitter {
     constructor() {
         super();
         this._is_active_publish = null;
+        this._speech_publish = null;
     }
 
     /**
@@ -26,6 +27,17 @@ class rosConnection extends EventEmitter {
     }
 
     /**
+     * Send data over the topic
+     * @param value as string
+     */
+    rosSpeak(value) {
+        console.log('Message is: ' + value)
+        const msg  =new std_msgs.String();
+        msg.data = value;
+        this._speech_publish.publish(msg);
+    }
+
+    /**
      * Listen to ROS and emit a change when the is_active changes.
      */
     listener() {
@@ -33,6 +45,7 @@ class rosConnection extends EventEmitter {
         rosnodejs.initNode('/social_interaction')
             .then((rosNode) => {
                 this._is_active_publish = rosNode.advertise('/interaction/is_active', std_msgs.Int32);
+                this._speech_publish = rosNode.advertise('/speech', std_msgs.String);
 
                 // Subscribe to the is_active topic.
                 rosNode.subscribe('/interaction/is_active', std_msgs.Int32, (msg) => {
@@ -48,6 +61,11 @@ class rosConnection extends EventEmitter {
                     console.log('Received rosAction input ' + data);
 
                     this.emit('rosTextInput', data);
+                });
+
+                rosNode.subscribe('/speech',std_msgs.String, (msg) => {
+                    var data = msg.data;
+                    console.log('speech ' + data);
                 });
             });
     }

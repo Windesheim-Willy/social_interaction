@@ -24,10 +24,9 @@ class aboutWilly extends interactionBase {
         // Change the frontend of Willy.
         this.io.emit('changeMood', 'red');
         this.io.emit('changeFormat', screenSize.full);
-        this.io.emit('changeContent', '')
+        this.io.emit('changeContent', '');
 
-        // Speak the information about Willy.
-        // @TODO: speak the information.
+        rosConnection.rosSpeak('Hoi, ik ben Willy, de interactieve robot van Hogeschool Windesheim.');
 
         setTimeout(function () {
             interaction.stop();
