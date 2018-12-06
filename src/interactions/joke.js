@@ -47,8 +47,7 @@ class joke extends interactionBase {
         io.emit('changeContent', content);
         io.emit('confetti', true);
 
-        // Speak the information about the map.
-        // @TODO: speak the information.
+        rosConnection.rosSpeak(joke);
 
         setTimeout(function () {
             interaction.stop();
