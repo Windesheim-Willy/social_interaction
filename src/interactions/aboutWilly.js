@@ -27,6 +27,7 @@ class aboutWilly extends interactionBase {
         this.io.emit('changeContent', '');
 
         rosConnection.rosSpeak('Hoi, ik ben Willy, de interactieve robot van Hogeschool Windesheim.');
+        rosConnection.moveCommand('turn_around');
 
         setTimeout(function () {
             interaction.stop();
