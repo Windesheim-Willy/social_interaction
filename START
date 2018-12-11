@@ -12,7 +12,7 @@ start)
   rosrun social_interaction start.sh  &>/dev/null &
 
   while ! echo exit | nc localhost 3000; do sleep 10; done
-  sudo -u pi DISPLAY=:0 chromium-browser http://localhost:3000 -kiosk &>/dev/null &
+  sudo -u pi DISPLAY=:0 chromium-browser --disable-session-crashed-bubble --disable-infobars http://localhost:3000 -kiosk &>/dev/null &
   ;;
 stop)
   killall node
