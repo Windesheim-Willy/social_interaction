@@ -10,6 +10,7 @@ class rosConnection extends EventEmitter {
         super();
         this._is_active_publish = null;
         this._speech_publish = null;
+        this._move_publish = null;
     }
 
     /**
@@ -38,6 +39,17 @@ class rosConnection extends EventEmitter {
     }
 
     /**
+     * Send move data over the topic
+     * @param value as string
+     */
+    moveCommand(value) {
+        console.log('Move command is: ' + value)
+        const msg = new std_msgs.String();
+        msg.data = value;
+        this._move_publish.publish(msg);
+    }
+
+    /**
      * Listen to ROS and emit a change when the is_active changes.
      */
     listener() {
@@ -46,6 +58,7 @@ class rosConnection extends EventEmitter {
             .then((rosNode) => {
                 this._is_active_publish = rosNode.advertise('/interaction/is_active', std_msgs.Int32);
                 this._speech_publish = rosNode.advertise('/speech', std_msgs.String);
+                this._move_publish = rosNode.advertise('/move_action', std_msgs.String);
 
                 // Subscribe to the is_active topic.
                 rosNode.subscribe('/interaction/is_active', std_msgs.Int32, (msg) => {
