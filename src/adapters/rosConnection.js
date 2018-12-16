@@ -1,6 +1,7 @@
 const rosnodejs = require('rosnodejs');
 const std_msgs = rosnodejs.require('std_msgs').msg;
 const EventEmitter = require('events');
+const striptags = require('striptags');
 
 /**
  * Create a adapter between the social interaction and ROS.
@@ -33,7 +34,8 @@ class rosConnection extends EventEmitter {
      */
     rosSpeak(value) {
         console.log('Message is: ' + value)
-        const msg  =new std_msgs.String();
+        value = striptags(value);
+        const msg = new std_msgs.String();
         msg.data = value;
         this._speech_publish.publish(msg);
     }
